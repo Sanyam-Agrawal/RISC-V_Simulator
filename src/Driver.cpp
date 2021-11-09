@@ -1,14 +1,21 @@
 /* It contains the main driver's code for the simulator.
  *
  */
-#include "Driver.hpp"
+#include "Simulation.hpp"
 
 int main(int argc, char **argv) {
-  using namespace std;
-  cout << "Initialized the simulator\n";
-
-  while (true) {
+  if (argc != 2) {
+    std::cerr << "Usage: risc-v-sim <binary>\n";
+    return 1;
   }
 
-  return 0;
+  Memory memory{10};
+  Simulation sim{memory, argv[1]};
+
+  std::cout << "Beginning the simulation...\n\n";
+  try {
+    sim.simulate();
+  } catch (std::exception &e) {
+    std::cerr << "error: " << e.what() << "\n";
+  }
 }

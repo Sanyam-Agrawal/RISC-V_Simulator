@@ -1,1 +1,1 @@
-add_executable(risc-v-sim Driver.cpp)
+add_executable(risc-v-sim Driver.cpp Simulation.cpp)

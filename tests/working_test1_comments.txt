@@ -1,0 +1,61 @@
+xor r6 r6 r6     
+addi r6 r6 180                    # r6 = length of array
+
+xor r12 r12 r12                   # r12  i for first loop  
+
+xor r5 r5 r5
+addi r5 r5 256                    # starting address of array is r5 = 256
+
+xor r2 r2 r2
+addi r2 r2 9                      # r2: to be taken xor with i
+
+loop1_start: bge r12 r6 loop1_end # branch if r12 >= r6 i.e. i >= 5
+
+or r3 r12 r2                      # r3 = i | 9
+sw r3 0(r5)                       # store r5 in memory at address r5
+
+addi r5 r5 4                      # increment memory address
+addi r12 r12 1                    # i = i + 1
+
+beq r12 r12 loop1_start           # this condition is always true to start loop again
+
+loop1_end: xor r31 r31 r31        # redundant to satisy label format
+
+lui r7 0
+addi r7 r7 256                    # starting address of array
+lui r12 0                         # r12  i for loop
+lui r3 0                          # r3: stores sum
+
+loop2_start: bge r12 r6 loop2_end
+
+lw r4 0(r7)
+lui r10 0
+addi r10 r10 1                    # r10 = 1
+sll r4 r4 r10                     # r4 = 2 * arr[i]
+lui r10 0
+addi r10 r10 1
+sub r4 r4 r10                     # r4 = r4 - 1
+add r3 r3 r4                      # sum += r4
+
+addi r7 r7 4                      # increment memory address
+addi r12 r12 1                    # i = i + 1
+
+jal r11 loop2_start
+
+loop2_end: and r12 r12 r5
+lui r13 -45
+xor r14 r13 r12
+add r15 r14 r13
+sra r16 r15 r13
+
+# r3 should be 33692 after execution completes
+# C-code:
+
+# int n = 180;
+# int arr[n];
+# for(int i = 0 ; i < n ; i++){
+#     arr[i] = i | 9;
+# }
+# int sum = 0;
+# for(int i = 0 ; i < n ; i++)
+#     sum += 2 * arr[i] - 1;

@@ -11,4 +11,5 @@ $ mkdir build
 $ cd build
 $ cmake ..
 $ make
+$ ./risc-v-sim <(python3 ../Assembler/asm.py < <test>)
 ```

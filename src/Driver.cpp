@@ -9,7 +9,9 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  Memory memory{10};
+  MainMemory mainMemory{};
+  Cache cache{};
+  Memory memory{&mainMemory, &cache};
   Simulation sim{memory, argv[1]};
 
   std::cout << "Beginning the simulation...\n\n";

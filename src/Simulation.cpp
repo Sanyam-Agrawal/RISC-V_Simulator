@@ -121,7 +121,7 @@ Word Simulation::initialize() {
     Instruction inst = 0;
     for (int i = 0; i < ILEN; ++i)
       inst = (inst << 1) | (line[i] == '1');
-    memory.writeData(idx, inst);
+    memory.writeDataToMainMemory(idx, inst);
   }
   // tell memory subsytem the program memory address range
   memory.set_program_memory(0, idx);
